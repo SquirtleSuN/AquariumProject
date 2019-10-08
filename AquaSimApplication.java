@@ -28,8 +28,9 @@ public class AquaSimApplication
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
 
         // Construct the aquarium.  Specify its dimensions when creating it.
-        Aquarium aqua;                 // create reference to an Aquarium ...
-        aqua = new Aquarium(600, 480); // ... object that has now been created
+        Aquarium aqua;  // create reference to an Aquarium ...
+        //aqua = new Aquarium(600, 400);
+        aqua = new Aquarium(1000, 1000); // ... object that has now been created
 
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE!
@@ -38,7 +39,6 @@ public class AquaSimApplication
             aqua.add(black);
         AquaFish white = new AquaFish(aqua);
             aqua.add(white);
-            white.moveForward();
         AquaFish blue = new AquaFish(aqua, Color.blue);
             aqua.add(blue);
         
@@ -63,15 +63,65 @@ public class AquaSimApplication
 
         // Make the fish move and redisplay.
         //      CODE MISSING HERE!
-        black.moveForward();
-        white.moveForward();
-        blue.moveForward();
-        userInterface.showAquarium();
+        for (;;)
+        {
+            black.moveForward();
+            blue.moveForward();
+            white.moveForward();
+            userInterface.showAquarium();
+            if (black.atWall())
+            {
+                black.changeDir();
+                black.moveForward();
+                blue.moveForward();
+                white.moveForward();
+                userInterface.showAquarium();
+            }
+            if (blue.atWall())
+            {
+                blue.changeDir();
+                black.moveForward();
+                blue.moveForward();
+                white.moveForward();
+                userInterface.showAquarium();
+            }
+            if (white.atWall())
+            {
+                white.changeDir();
+                black.moveForward();
+                blue.moveForward();
+                white.moveForward();
+                userInterface.showAquarium();
+            }
+        }
+        /*while (!blue.atWall())
+        {
+            blue.moveForward();
+            userInterface.showAquarium();
+            if (blue.atWall())
+            {
+                blue.changeDir();
+                blue.moveForward();
+                userInterface.showAquarium();
+            }
+        }
+        while (!white.atWall())
+        {
+            white.moveForward();
+            userInterface.showAquarium();
+            if (white.atWall())
+            {
+                white.changeDir();
+                white.moveForward();
+                userInterface.showAquarium();
+            }
+        }
+        userInterface.showAquarium();*/
 
         // WRAP UP.
 
         // Remind user how to quit application.
-        userInterface.println ("Close GUI display window to quit.");
+        
 
     }//end main
 
