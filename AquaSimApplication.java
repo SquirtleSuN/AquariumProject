@@ -21,15 +21,15 @@ public class AquaSimApplication
      *  This is the main function.  It executes the program.
      *  @param    String args[] is never used
      **/
+    private static Random generator;
     public static void main(String args[])
     {
         System.out.println("This is the aquarium lab.");
 
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
-        Random generator = new Random();
+        generator = new Random();
         int randNum;
-            randNum = generator.nextInt(10);
-            randNum = generator.nextInt(10);
+        
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;  // create reference to an Aquarium ...
         //aqua = new Aquarium(600, 400);
@@ -38,12 +38,15 @@ public class AquaSimApplication
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE!
         // Add AquaFish to aquarium
+        
         AquaFish black = new AquaFish(aqua, Color.black);
             aqua.add(black);
         AquaFish white = new AquaFish(aqua);
             aqua.add(white);
         AquaFish blue = new AquaFish(aqua, Color.blue);
             aqua.add(blue);
+        AquaFish eric = new AquaFish(aqua, getColor(generator));
+            aqua.add(eric);
         
 
         // Construct a graphical user interface (GUI) to display and control
@@ -71,6 +74,8 @@ public class AquaSimApplication
             black.moveForward();
             blue.moveForward();
             white.moveForward();
+            eric.moveForward();
+            
             userInterface.showAquarium();
             if (black.atWall())
             {
@@ -78,11 +83,23 @@ public class AquaSimApplication
                 black.moveForward();
                 blue.moveForward();
                 white.moveForward();
+                eric.moveForward();
+                
                 userInterface.showAquarium();
             }
             if (blue.atWall())
             {
                 blue.changeDir();
+                black.moveForward();
+                blue.moveForward();
+                white.moveForward();
+                eric.moveForward();
+                
+                userInterface.showAquarium();
+            }
+            if (white.atWall())
+            {
+                white.changeDir();
                 black.moveForward();
                 blue.moveForward();
                 white.moveForward();
@@ -127,5 +144,22 @@ public class AquaSimApplication
         
 
     }//end main
-
+    public static Color getColor(Random generator)
+    {
+        int randNum = generator.nextInt(6);
+        if (randNum == 0)
+            return Color.RED;
+        else if (randNum == 1)
+            return Color.BLUE;
+        else if (randNum == 2)
+            return Color.ORANGE;
+        else if (randNum == 3)
+            return Color.YELLOW;
+        else if (randNum == 4)
+            return Color.GREEN;
+        else // (randNum == 5)
+            return Color.MAGENTA;
+            
+        
+    }
 }//end class
