@@ -4,5 +4,5 @@ comment0.text=\ Aquarium\ Lab\ Series\:\ <br>\ \ \ \ \r\n\ \ \ \ \ \ The\ AquaSi
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=generator
-comment2.target=java.awt.Color\ getColor(java.util.Random)
+comment2.target=java.awt.Color\ setColor(java.util.Random)
 numComments=3

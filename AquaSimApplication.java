@@ -21,7 +21,7 @@ public class AquaSimApplication
      *  This is the main function.  It executes the program.
      *  @param    String args[] is never used
      **/
-    private static Random generator;
+    private static Random generator; 
     public static void main(String args[])
     {
         System.out.println("This is the aquarium lab.");
@@ -33,7 +33,7 @@ public class AquaSimApplication
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;  // create reference to an Aquarium ...
         //aqua = new Aquarium(600, 400);
-        aqua = new Aquarium(1000, 1000); // ... object that has now been created
+        aqua = new Aquarium(800, 800); // ... object that has now been created
 
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE!
@@ -41,19 +41,27 @@ public class AquaSimApplication
         
         AquaFish black = new AquaFish(aqua, Color.black);
             aqua.add(black);
-        AquaFish white = new AquaFish(aqua);
+        AquaFish white = new AquaFish(aqua, setColor(generator));
             aqua.add(white);
         AquaFish blue = new AquaFish(aqua, Color.blue);
             aqua.add(blue);
-        AquaFish eric = new AquaFish(aqua, getColor(generator));
+        AquaFish eric = new AquaFish(aqua, setColor(generator));
             aqua.add(eric);
+        AquaFish brian = new AquaFish(aqua, setColor(generator));
+            aqua.add(brian);
+        AquaFish squirtle = new AquaFish(aqua, setColor(generator));
+            aqua.add(squirtle);
+         AquaFish pika = new AquaFish(aqua, setColor(generator));
+            aqua.add(pika);
         
 
         // Construct a graphical user interface (GUI) to display and control
         // the simulation.  The user interface needs to know about the
         // aquarium, so we pass aqua to the user interface constructor.
         AquaSimGUI userInterface;              // create reference to GUI ...
-        userInterface = new AquaSimGUI(aqua);  // ... and then GUI itself
+        //userInterface = new AquaSimGUI(aqua);  // ... and then GUI itself
+        userInterface = new AquaSimGUI(aqua, promptForSimSteps);
+        int numStep = getNumberOfSteps();
 
         // Tell the user how to start the aquarium simulation.
         System.out.println("Press the Start button to start the simulation.");
@@ -75,7 +83,7 @@ public class AquaSimApplication
             blue.moveForward();
             white.moveForward();
             eric.moveForward();
-            
+            brian.moveForward();
             userInterface.showAquarium();
             if (black.atWall())
             {
@@ -84,7 +92,7 @@ public class AquaSimApplication
                 blue.moveForward();
                 white.moveForward();
                 eric.moveForward();
-                
+                brian.moveForward();
                 userInterface.showAquarium();
             }
             if (blue.atWall())
@@ -94,7 +102,7 @@ public class AquaSimApplication
                 blue.moveForward();
                 white.moveForward();
                 eric.moveForward();
-                
+                brian.moveForward();
                 userInterface.showAquarium();
             }
             if (white.atWall())
@@ -103,14 +111,28 @@ public class AquaSimApplication
                 black.moveForward();
                 blue.moveForward();
                 white.moveForward();
+                eric.moveForward();
+                brian.moveForward();
                 userInterface.showAquarium();
             }
-            if (white.atWall())
+            if (eric.atWall())
             {
-                white.changeDir();
+                eric.changeDir();
+                eric.moveForward();
                 black.moveForward();
                 blue.moveForward();
                 white.moveForward();
+                brian.moveForward();
+                userInterface.showAquarium();
+            }
+            if (brian.atWall())
+            {
+                brian.changeDir();
+                eric.moveForward();
+                black.moveForward();
+                blue.moveForward();
+                white.moveForward();
+                brian.moveForward();
                 userInterface.showAquarium();
             }
         }
@@ -144,9 +166,9 @@ public class AquaSimApplication
         
 
     }//end main
-    public static Color getColor(Random generator)
+    public static Color setColor(Random generator)
     {
-        int randNum = generator.nextInt(6);
+        int randNum = generator.nextInt(20);
         if (randNum == 0)
             return Color.RED;
         else if (randNum == 1)
@@ -155,11 +177,17 @@ public class AquaSimApplication
             return Color.ORANGE;
         else if (randNum == 3)
             return Color.YELLOW;
-        else if (randNum == 4)
-            return Color.GREEN;
-        else // (randNum == 5)
+        else if (randNum==4)
             return Color.MAGENTA;
-            
-        
+        else // (randNum>=5)
+            return Color.GREEN;
+    }
+    public static AquaSimGUI steps(Aquarium aqua, boolean promptForSimSteps)
+    {
+        if (promptForSimSteps == true)
+        {
+            int numSteps = getNumberOfSteps();
+            return numSteps;
+        }
     }
 }//end class
