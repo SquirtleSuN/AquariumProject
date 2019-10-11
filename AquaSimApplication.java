@@ -29,11 +29,14 @@ public class AquaSimApplication
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
         generator = new Random();
         int randNum;
+        boolean place;
+        int turnAr;
+        
         
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;  // create reference to an Aquarium ...
         //aqua = new Aquarium(600, 400);
-        aqua = new Aquarium(800, 800); // ... object that has now been created
+        aqua = new Aquarium(1000, 1000); // ... object that has now been created
 
         // Construct fish and add them to the aquarium.
         //      CODE MISSING HERE!
@@ -49,10 +52,10 @@ public class AquaSimApplication
             aqua.add(eric);
         AquaFish brian = new AquaFish(aqua, setColor(generator));
             aqua.add(brian);
-        AquaFish squirtle = new AquaFish(aqua, setColor(generator));
+        /*AquaFish squirtle = new AquaFish(aqua, setColor(generator));
             aqua.add(squirtle);
-         AquaFish pika = new AquaFish(aqua, setColor(generator));
-            aqua.add(pika);
+        AquaFish pika = new AquaFish(aqua, setColor(generator));
+            aqua.add(pika);*/
         
 
         // Construct a graphical user interface (GUI) to display and control
@@ -60,8 +63,8 @@ public class AquaSimApplication
         // aquarium, so we pass aqua to the user interface constructor.
         AquaSimGUI userInterface;              // create reference to GUI ...
         //userInterface = new AquaSimGUI(aqua);  // ... and then GUI itself
-        userInterface = new AquaSimGUI(aqua, promptForSimSteps);
-        int numStep = getNumberOfSteps();
+        userInterface = new AquaSimGUI(aqua, true);
+        int numStep = userInterface.getNumberOfSteps();
 
         // Tell the user how to start the aquarium simulation.
         System.out.println("Press the Start button to start the simulation.");
@@ -77,64 +80,34 @@ public class AquaSimApplication
 
         // Make the fish move and redisplay.
         //      CODE MISSING HERE!
-        for (;;)
+        for (int a=1; a<=numStep; a+=1)
         {
-            black.moveForward();
-            blue.moveForward();
-            white.moveForward();
-            eric.moveForward();
-            brian.moveForward();
-            userInterface.showAquarium();
             if (black.atWall())
             {
                 black.changeDir();
-                black.moveForward();
-                blue.moveForward();
-                white.moveForward();
-                eric.moveForward();
-                brian.moveForward();
-                userInterface.showAquarium();
-            }
+            }   
+            black.moveForward();
             if (blue.atWall())
             {
                 blue.changeDir();
-                black.moveForward();
-                blue.moveForward();
-                white.moveForward();
-                eric.moveForward();
-                brian.moveForward();
-                userInterface.showAquarium();
             }
+            blue.moveForward();
             if (white.atWall())
             {
                 white.changeDir();
-                black.moveForward();
-                blue.moveForward();
-                white.moveForward();
-                eric.moveForward();
-                brian.moveForward();
-                userInterface.showAquarium();
             }
+            white.moveForward();
             if (eric.atWall())
             {
                 eric.changeDir();
-                eric.moveForward();
-                black.moveForward();
-                blue.moveForward();
-                white.moveForward();
-                brian.moveForward();
-                userInterface.showAquarium();
             }
+            eric.moveForward();
             if (brian.atWall())
             {
                 brian.changeDir();
-                eric.moveForward();
-                black.moveForward();
-                blue.moveForward();
-                white.moveForward();
-                brian.moveForward();
-                userInterface.showAquarium();
             }
+            brian.moveForward();
+            userInterface.showAquarium();
         }
         /*while (!blue.atWall())
         {
@@ -182,12 +155,10 @@ public class AquaSimApplication
         else // (randNum>=5)
             return Color.GREEN;
     }
-    public static AquaSimGUI steps(Aquarium aqua, boolean promptForSimSteps)
+    public static boolean place(Random generator)
     {
-        if (promptForSimSteps == true)
-        {
-            int numSteps = getNumberOfSteps();
-            return numSteps;
-        }
+        int turnAr = generator.nextInt(4);
+        if (turnAr == 0)
+            return true;
     }
 }//end class
