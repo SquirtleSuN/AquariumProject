@@ -22,16 +22,14 @@ public class AquaSimApplication
      *  @param    String args[] is never used
      **/
     private static Random generator; 
+    private static Random place;
     public static void main(String args[])
     {
         System.out.println("This is the aquarium lab.");
 
         // CONSTRUCT OBJECTS NEEDED FOR THE AQUARIUM SIMULATION.
         generator = new Random();
-        int randNum;
-        boolean place;
-        int turnAr;
-        
+        place = new Random();
         
         // Construct the aquarium.  Specify its dimensions when creating it.
         Aquarium aqua;  // create reference to an Aquarium ...
@@ -42,11 +40,11 @@ public class AquaSimApplication
         //      CODE MISSING HERE!
         // Add AquaFish to aquarium
         
-        AquaFish black = new AquaFish(aqua, Color.black);
+        AquaFish black = new AquaFish(aqua, setColor(generator));
             aqua.add(black);
         AquaFish white = new AquaFish(aqua, setColor(generator));
             aqua.add(white);
-        AquaFish blue = new AquaFish(aqua, Color.blue);
+        AquaFish blue = new AquaFish(aqua, setColor(generator));
             aqua.add(blue);
         AquaFish eric = new AquaFish(aqua, setColor(generator));
             aqua.add(eric);
@@ -80,29 +78,35 @@ public class AquaSimApplication
 
         // Make the fish move and redisplay.
         //      CODE MISSING HERE!
+        boolean turn = false;
         for (int a=1; a<=numStep; a+=1)
-        {
-            if (black.atWall())
+        {   int turnAr = generator.nextInt(4);
+            if (turnAr == 0)
+                turn = true;
+            else
+                turn = false;
+            
+            if (black.atWall() || turn == true)
             {
                 black.changeDir();
             }   
             black.moveForward();
-            if (blue.atWall())
+            if (blue.atWall() || turn == true)
             {
                 blue.changeDir();
             }
             blue.moveForward();
-            if (white.atWall())
+            if (white.atWall() || turn == true)
             {
                 white.changeDir();
             }
             white.moveForward();
-            if (eric.atWall())
+            if (eric.atWall() || turn == true)
             {
                 eric.changeDir();
             }
             eric.moveForward();
-            if (brian.atWall())
+            if (brian.atWall() || turn == true)
             {
                 brian.changeDir();
             }
@@ -141,7 +145,7 @@ public class AquaSimApplication
     }//end main
     public static Color setColor(Random generator)
     {
-        int randNum = generator.nextInt(20);
+        int randNum = generator.nextInt(7);
         if (randNum == 0)
             return Color.RED;
         else if (randNum == 1)
@@ -155,10 +159,11 @@ public class AquaSimApplication
         else // (randNum>=5)
             return Color.GREEN;
     }
-    public static boolean place(Random generator)
+    /*public static boolean around(Random place)
     {
         int turnAr = generator.nextInt(4);
+        boolean turn;
         if (turnAr == 0)
-            return true;
-    }
+            turn = true;
+    }*/
 }//end class
